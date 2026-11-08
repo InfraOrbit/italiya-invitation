@@ -4,4 +4,4 @@ Digital invitation for the ચાંદલા વિધિ (Ishva–Nirav, Mitik
 
 - Static site: `index.html` + `assets/`
 - `#sajode` on the URL switches the bhojan line and PDF link to the સજોડે version.
-- Music: `assets/lullaby.mp3` (original composition).
+- Music: `assets/krishna-mantra.mp3` (first ~5 min of the Krishna mantra supplied by the family, trimmed to a seamless loop).

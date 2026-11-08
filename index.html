@@ -393,7 +393,7 @@ footer .lotus.l{left:-30px;right:auto;transform:scaleX(-1);width:200px}
   <svg class="note" viewBox="0 0 24 24" fill="none" stroke="#7a1424" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3" fill="#f6d2da"/><circle cx="17" cy="16" r="3" fill="#f6d2da"/></svg>
   <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span>
 </button>
-<audio id="bgm" src="assets/lullaby.mp3" loop preload="none"></audio>
+<audio id="bgm" src="assets/krishna-mantra.mp3" loop preload="none"></audio>
 
 <!-- shared symbols -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -457,9 +457,10 @@ footer .lotus.l{left:-30px;right:auto;transform:scaleX(-1);width:200px}
   }
   // ---- music ----
   const bgm=document.getElementById('bgm'), mb=document.getElementById('musicBtn');
-  bgm.volume=.55;
+  const VOL=.6; bgm.volume=0;
   function setPlaying(on){ mb.classList.toggle('paused',!on); mb.setAttribute('aria-pressed',on); mb.setAttribute('aria-label',on?'સંગીત બંધ કરો':'સંગીત ચાલુ કરો'); }
-  function play(){ const p=bgm.play(); if(p&&p.then) p.then(()=>setPlaying(true)).catch(()=>setPlaying(false)); }
+  function fadeIn(){ const t0=performance.now(); (function step(now){ const k=Math.min(1,((now||performance.now())-t0)/2500); bgm.volume=VOL*k*k; if(k<1&&!bgm.paused) requestAnimationFrame(step); })(); }
+  function play(){ bgm.volume=0; const p=bgm.play(); if(p&&p.then) p.then(()=>{setPlaying(true);fadeIn()}).catch(()=>setPlaying(false)); else fadeIn(); }
   mb.addEventListener('click',()=>{ if(bgm.paused){play()} else {bgm.pause();setPlaying(false)} });
   let wasPlaying=false;
   document.addEventListener('visibilitychange',()=>{ if(document.hidden){wasPlaying=!bgm.paused;bgm.pause()} else if(wasPlaying){play()} });
